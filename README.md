@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: Naked twins is another technique that can be added to the sequence of techniques that are repeatedly applied to the problem (namely eliminate and reduce only). This may help us do less iterations.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: Constraint propagation is the technique of repeatedly applying a set of techniques to the problem. With diagonal sudoku there's an extra condition which is only applicable with the "only choice" technique. Expanding the list of units that this technique has to cover to include the diagonal units will address this constraint.
 
 ### Install
 
