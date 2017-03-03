@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: Naked twins is another technique that can be added to the sequence of techniques that are repeatedly applied to the problem (namely eliminate and reduce only). This may help us do less iterations.
+A: Naked twins is another technique that can be added to the sequence of techniques that are repeatedly applied to the problem (namely eliminate and reduce only). This may help us do less iterations by pruning the search space. This strategy allows us to remove the two values that appear in two peer boxes (could be vertical, horizontal, diagonal or any other type based on the rules of the game) from all the boxes that both of these boxes are peers with. This will allows us to cut out a whole bunch of possible values, reduce the search space, which will result in a faster solution to the game.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: Constraint propagation is the technique of repeatedly applying a set of techniques to the problem. With diagonal sudoku there's an extra condition which is only applicable with the "only choice" technique. Expanding the list of units that this technique has to cover to include the diagonal units will address this constraint.
+A: Constraint propagation is the technique of repeatedly applying a set of techniques to the problem. With diagonal sudoku there's an extra condition which is only applicable with the "only choice" technique. Expanding the list of units that this technique has to cover to include the diagonal units will address this constraint. The diagonal constraint increases the search space that has to be covered since there are more constraints (more peers per box). Computationally this constraint adds twice the number of rows peers to each box which has to be searched in the worst case scenario. This amounts to an extra `2 * rows * (rows * rows)` number of conditions (`2 * rows` extra constraints per box and we have `(rows * rows)` number of boxes) which is cubic in number of `rows` and can become intractable very quickly with increasing number of `rows`.
 
 ### Install
 

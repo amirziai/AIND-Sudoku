@@ -2,32 +2,9 @@ from PySudoku import digits, rows
 
 from itertools import product
 
+from util import peers, cross, boxes, cols, unit_list
+
 assignments = []
-
-
-def cross(a, b):
-    "Cross product of elements in A and elements in B."
-    return [s+t for s in a for t in b]
-
-rows = 'ABCDEFGHI'
-cols = '123456789'
-cols_revervse = cols[::-1]
-boxes = cross(rows, cols)
-
-row_units = [cross(r, cols) for r in rows]
-column_units = [cross(rows, c) for c in cols]
-square_units = [cross(rs, cs) for rs in ('ABC', 'DEF', 'GHI') for cs in ('123', '456', '789')]
-d1_units = [[rows[i] + cols[i] for i in range(len(rows))]]
-d2_units = [[rows[i] + cols_revervse[i] for i in range(len(rows))]]
-
-diagonal = True  # non-diagonal == 0
-if diagonal:
-    unit_list = row_units + column_units + square_units + d1_units + d2_units
-else:
-    unit_list = row_units + column_units + square_units
-
-units = dict((s, [u for u in unit_list if s in u]) for s in boxes)
-peers = dict((s, set(sum(units[s], [])) - set([s])) for s in boxes)
 
 
 def assign_value(values, box, value):
@@ -119,7 +96,7 @@ def eliminate(values):
 
 def only_choice(values):
     for unit in unit_list:
-        for digit in '123456789':
+        for digit in cols:
             dplaces = [box for box in unit if digit in values[box]]
             if len(dplaces) == 1:
                 values[dplaces[0]] = digit
@@ -132,6 +109,7 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
+        values = naked_twins(values)
         solved_values_after = len([box for box in values if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values if len(values[box]) == 0]):
